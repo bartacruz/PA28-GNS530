@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (c) 2022 Josh Davidson (Octal450) -->
+
+<!-- PA28-161 Aircraft Config Dialog -->
+
+<PropertyList>
+
+	<name>aircraft-config-about</name>
+	<layout>vbox</layout>
+
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<halign>left</halign>
+			<label>About This Aircraft</label>
+		</text>
+		<button>
+			<halign>right</halign>
+			<pref-width>20</pref-width>
+			<pref-height>20</pref-height>
+			<legend>X</legend>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+	
+	<hrule/>
+	
+	<group>
+		<layout>vbox</layout>
+		
+		<text>
+			<halign>left</halign>
+			<label>Piper PA28-161</label>
+		</text>
+		
+		<hrule/>
+		
+		<text>
+			<halign>left</halign>
+			<label>FDM: Josh Davidson (Octal450), Niels Krenz (Knüppelrührer), Benedikt Wolf (D-ECHO)</label>
+		</text>
+		<text>
+			<halign>left</halign>
+			<label>Systems: Josh Davidson (Octal450)</label>
+		</text>
+		<text>
+			<halign>left</halign>
+			<label>3D/Textures: Benedikt Wolf (D-ECHO)</label>
+		</text>
+		
+	</group>
+	
+	<hrule/>
+	
+	<group>
+		<layout>hbox</layout>
+		
+		<button>
+			<halign>center</halign>
+			<legend>Go Away</legend>
+			<pref-width>210</pref-width>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+
+</PropertyList>

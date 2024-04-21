@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (c) 2022 Josh Davidson (Octal450) -->
+
+<!-- PA28-161 Aircraft Config Dialog -->
+
+<PropertyList>
+	
+	<name>aircraft-config</name>
+	<layout>vbox</layout>
+	
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<halign>left</halign>
+			<label>Aircraft Configuration V1.5.1</label>
+		</text>
+		<empty><stretch>1</stretch></empty>
+		<button>
+			<row>0</row>
+			<col>0</col>
+			<halign>right</halign>
+			<pref-width>20</pref-width>
+			<pref-height>20</pref-height>
+			<legend>?</legend>
+			<binding>
+				<command>nasal</command>
+				<script>
+				acconfig.help_dlg.open();
+				</script>
+			</binding>
+		</button>
+		<button>
+			<halign>right</halign>
+			<pref-width>20</pref-width>
+			<pref-height>20</pref-height>
+			<legend>X</legend>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+	
+	<hrule/>
+	
+	<group>
+		<layout>hbox</layout>
+
+		<group>
+			<layout>vbox</layout>
+			
+			<group>
+				<layout>vbox</layout>
+				
+				<button>
+					<halign>center</halign>
+					<legend>Welcome</legend>
+					<pref-width>140</pref-width>
+					<binding>
+						<command>nasal</command>
+						<script>
+						acconfig.welcome_dlg.open();
+						</script>
+					</binding>
+				</button>
+				<button>
+					<halign>center</halign>
+					<legend>Select Livery</legend>
+					<pref-width>140</pref-width>
+					<binding>
+						<command>nasal</command>
+						<script>
+						aircraft.livery.dialog.toggle();
+						</script>
+					</binding>
+				</button>
+			</group>
+			
+			<group>
+				<layout>vbox</layout>
+				
+				<group>
+					<layout>hbox</layout>
+
+					<hrule>
+						<stretch type="bool">true</stretch>
+					</hrule>
+					<text>
+						<label>Load Panel State</label>
+					</text>
+					<hrule>
+						<stretch type="bool">true</stretch>
+					</hrule>
+				</group>
+				
+				<group>
+					<layout>vbox</layout>
+					
+					<button>
+						<halign>center</halign>
+						<legend>Cold and Dark</legend>
+						<pref-width>140</pref-width>
+						<enable>
+							<and>
+								<not><property>/systems/acconfig/autoconfig-running</property></not>
+								<property>/gear/gear[0]/wow</property>
+								<property>/gear/gear[1]/wow</property>
+								<property>/gear/gear[2]/wow</property>
+							</and>
+						</enable>
+						<binding>
+							<command>nasal</command>
+							<script>acconfig.colddark();</script>
+						</binding>
+						<binding>
+							<command>dialog-close</command>
+						</binding>
+					</button>
+					<button>
+						<halign>center</halign>
+						<legend>Ready to Start Eng</legend>
+						<pref-width>140</pref-width>
+						<enable>
+							<and>
+								<not><property>/systems/acconfig/autoconfig-running</property></not>
+								<property>/gear/gear[0]/wow</property>
+								<property>/gear/gear[1]/wow</property>
+								<property>/gear/gear[2]/wow</property>
+							</and>
+						</enable>
+						<binding>
+							<command>nasal</command>
+							<script>acconfig.beforestart();</script>
+						</binding>
+						<binding>
+							<command>dialog-close</command>
+						</binding>
+					</button>
+					<button>
+						<halign>center</halign>
+						<legend>Ready for Taxi</legend>
+						<pref-width>140</pref-width>
+						<enable>
+							<and>
+								<not><property>/systems/acconfig/autoconfig-running</property></not>
+								<property>/gear/gear[0]/wow</property>
+								<property>/gear/gear[1]/wow</property>
+								<property>/gear/gear[2]/wow</property>
+							</and>
+						</enable>
+						<binding>
+							<command>nasal</command>
+							<script>acconfig.taxi();</script>
+						</binding>
+						<binding>
+							<command>dialog-close</command>
+						</binding>
+					</button>
+					<button>
+						<halign>center</halign>
+						<legend>Ready for Takeoff</legend>
+						<pref-width>140</pref-width>
+						<enable>
+							<and>
+								<not><property>/systems/acconfig/autoconfig-running</property></not>
+								<property>/gear/gear[0]/wow</property>
+								<property>/gear/gear[1]/wow</property>
+								<property>/gear/gear[2]/wow</property>
+							</and>
+						</enable>
+						<binding>
+							<command>nasal</command>
+							<script>acconfig.takeoff();</script>
+						</binding>
+						<binding>
+							<command>dialog-close</command>
+						</binding>
+					</button>
+				</group>
+			</group>
+		</group>
+		
+		<vrule/>
+		
+		<group>
+			<layout>vbox</layout>
+
+			<button>
+				<legend>Adjust Fuel</legend>
+				<halign>center</halign>
+				<padding>5</padding>
+				<pref-width>150</pref-width>
+				<binding>
+					<command>nasal</command>
+					<script>
+					if (getprop("/gear/gear/wow")) {
+						gui.showWeightDialog();
+					}                  	 
+					else {
+						gui.popupTip("No Air to Air refueling support", 6.0);               			
+					}
+					</script>
+				</binding>
+			</button>
+			
+			<hrule/>
+			
+			<text>
+				<halign>left</halign>
+				<label>Panel Texture</label>
+			</text>
+			
+			<combo>
+				<halign>right</halign>
+				<pref-width>150</pref-width>
+				<property>/options/panel-texture</property>
+				<value>white</value>
+				<value>wood</value>
+				<value>leather</value>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>acconfig.writeSettings();</script>
+				</binding>
+				<live>true</live>
+			</combo>
+			
+			<hrule/>
+			
+			<text>
+				<halign>left</halign>
+				<label>Factory-set VFR Transponder Code:</label>
+			</text>
+			
+			<input>
+				<halign>right</halign>
+				<width>75</width>
+				<height>25</height>
+				<property>/instrumentation/it-gtx327/factory-vfr-code</property>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<live>true</live>
+			</input>
+
+			<hrule/>
+			
+			<checkbox>
+				<halign>center</halign>
+				<label>Garmin 196 GPS</label>
+				<property>/options/garmin196</property>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<live>true</live>
+			</checkbox>
+			
+			<hrule/>
+			
+			<text>
+				<halign>left</halign>
+				<label>Autopilot:</label>
+			</text>
+			
+			<combo>
+				<halign>right</halign>
+				<pref-width>150</pref-width>
+				<enable>
+					<equals> <!-- Changing autopilot while the AP is running could cause problems -->
+						<property>/it-stec55x/output/roll</property>
+						<value>-1</value>
+					</equals>
+				</enable>
+				<property>/options/autopilot</property>
+				<value>S-TEC 55X</value>
+				<value>KAP140</value>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>acconfig.writeSettings();</script>
+				</binding>
+				<live>true</live>
+			</combo>
+			
+			<checkbox>
+				<halign>right</halign>
+				<label>Flight Director (FD) equipped (only with S-TEC 55X)</label>
+				<property>/it-stec55x/settings/fd-equipped</property>
+				<enable>
+					<equals>
+						<property>/options/autopilot</property>
+						<value>S-TEC 55X</value>
+					</equals>
+				</enable>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<live>true</live>
+			</checkbox>
+
+			<hrule/>
+		
+			
+			<text>
+				<halign>left</halign>
+				<label>There are 2 options for your navigation setup:</label>
+			</text>
+			<text>
+				<halign>left</halign>
+				<label>HSI: 1 HSI and 1 OBS, optionally with ADF</label>
+			</text>
+			<text>
+				<halign>left</halign>
+				<label>DG: 2 OBS and no HSI.</label>
+			</text>
+		
+			<combo>
+				<halign>right</halign>
+				<name>panel-type</name>
+				<pref-width>150</pref-width>
+				<enable>
+					<equals> <!-- Changing panel type while the AP is running could cause problems -->
+						<property>/it-stec55x/output/roll</property>
+						<value>-1</value>
+					</equals>
+				</enable>
+				<property>/options/panel</property>
+				<value>HSI Panel</value>
+				<value>DG Panel</value>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+					acconfig.writeSettings();
+					</script>
+				</binding>
+				<live>true</live>
+			</combo>
+			
+			<checkbox>
+				<halign>right</halign>
+				<name>adf-option</name>
+				<pref-width>150</pref-width>
+				<label>ADF equipped</label>
+				<enable>
+					<equals>
+						<property>/options/panel</property>
+						<value>HSI Panel</value>
+					</equals>
+				</enable>
+				<property>/options/adf-equipped</property>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<live>true</live>
+			</checkbox>
+			
+			<hrule/>
+			
+			<text>
+				<halign>left</halign>
+				<label>There are 2 options for the attitude indicator instrument:</label>
+			</text>
+			<text>
+				<halign>left</halign>
+				<label>standard: A traditional, mechanical, suction-pump driven Attitude Indicator</label>
+			</text>
+			<text>
+				<halign>left</halign>
+				<label>Garmin G5: A combined digital instrument</label>
+			</text>
+		
+			<combo>
+				<halign>right</halign>
+				<name>panel-type</name>
+				<pref-width>150</pref-width>
+				<enable>
+					<equals> <!-- Changing panel type while the AP is running could cause problems -->
+						<property>/it-stec55x/output/roll</property>
+						<value>-1</value>
+					</equals>
+				</enable>
+				<property>/options/attitude-indicator</property>
+				<value>standard</value>
+				<value>Garmin G5</value>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+					acconfig.writeSettings();
+					</script>
+				</binding>
+				<live>true</live>
+			</combo>
+			
+			<hrule/>
+			
+			<text>
+				<halign>left</halign>
+				<label>There are 2 options for the radio setup:</label>
+			</text>
+			<text>
+				<halign>left</halign>
+				<label>traditional: Two KX-165 (COM/NAV 1 and 2) and a normal DME instrument.</label>
+			</text>
+			<text>
+				<halign>left</halign>
+				<label>GNS530: Garmin GNS530 for COM/NAV 1 and navigation, KX-165 for COM/NAV 2</label>
+			</text>
+		
+			<combo>
+				<halign>right</halign>
+				<name>radio-setup</name>
+				<pref-width>150</pref-width>
+				<property>/options/radio-setup</property>
+				<value>traditional</value>
+				<value>GNS530</value>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>
+					acconfig.writeSettings();
+					</script>
+				</binding>
+				<live>true</live>
+			</combo>
+			
+			
+		</group>
+		
+	</group>
+	
+</PropertyList>

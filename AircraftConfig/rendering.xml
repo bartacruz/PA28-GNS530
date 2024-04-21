@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (c) 2022 Josh Davidson (Octal450), Benedikt Wolf (D-ECHO) -->
+
+<PropertyList>
+
+	<name>aircraft-config-rendering</name>
+	<layout>vbox</layout>
+	
+	<group>
+		<layout>hbox</layout>
+		<text>
+			<halign>left</halign>
+			<label>Rendering Settings</label>
+		</text>
+		<button>
+			<halign>right</halign>
+			<pref-width>20</pref-width>
+			<pref-height>20</pref-height>
+			<legend>X</legend>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+	
+	<hrule/>
+	
+	<group>
+		<layout>vbox</layout>
+		
+		<text>
+			<halign>left</halign>
+			<label>This model has been optimized for best experience with certain rendering settings. It seems like these differ from your current settings.</label>
+		</text>
+	
+	</group>
+	
+	<hrule/>
+	
+	<group>
+		<layout>hbox</layout>
+	
+		<checkbox>
+			<label>Don't show this information again.</label>
+			<halign>center</halign>
+			<property>/systems/acconfig/options/no-rendering-warn</property>
+			<binding>
+				<command>property-toggle</command>
+				<property>/systems/acconfig/options/no-rendering-warn</property>
+			</binding>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>
+				acconfig.writeSettings();
+				</script>
+			</binding>
+			<live>true</live>
+		</checkbox>
+		
+	</group>
+	
+	<hrule/>
+	
+	<group>
+		<layout>hbox</layout>
+		
+		<button>
+			<halign>center</halign>
+			<legend>Show detailed rendering information (opens a PDF document)</legend>
+			<pref-width>400</pref-width>
+			<binding>
+				<command>open-browser</command>
+				<path>Aircraft/PA28/Docs/Rendering.pdf</path>
+			</binding>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+		
+		<button>
+			<halign>center</halign>
+			<legend>Close this Dialog</legend>
+			<pref-width>180</pref-width>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	
+	</group>
+	
+</PropertyList>
